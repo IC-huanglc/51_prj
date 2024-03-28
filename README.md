@@ -1,0 +1,1 @@
+This is project file for learning 8051 series.
