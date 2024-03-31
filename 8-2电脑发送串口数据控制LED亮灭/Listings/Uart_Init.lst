@@ -1,0 +1,55 @@
+C51 COMPILER V9.54   UART_INIT                                                             03/30/2024 22:21:00 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE UART_INIT
+OBJECT MODULE PLACED IN .\Objects\Uart_Init.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Uart_Init.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\Uart_Init.lst) OBJECT(.\Objects\Uart_Init.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          void Uart_Init()                //4800bps@11.0592MHz
+   4          {
+   5   1              PCON |= 0x80;           //使能波特率倍速位SMOD
+   6   1              SCON = 0x50;            //8位数据,可变波特率    //发送接收都使能
+   7   1      //      AUXR &= 0xBF;           //定时器1时钟为Fosc/12,即12T
+   8   1      //      AUXR &= 0xFE;           //串口1选择定时器1为波特率发生器
+   9   1              TMOD &= 0x0F;           //清除定时器1模式位
+  10   1              TMOD |= 0x20;           //设定定时器1为8位自动重装方式
+  11   1              TL1 = 0xF4;             //设定定时初值
+  12   1              TH1 = 0xF4;             //设定定时器重装值
+  13   1              ET1 = 0;                //禁止定时器1中断
+  14   1              TR1 = 1;                //启动定时器1
+  15   1              
+  16   1              //使能串口中断
+  17   1              EA = 1; //Enable all
+  18   1              ES = 1; //启动串口中断
+  19   1      }
+  20          
+  21          
+  22          void Uart_SendByte(unsigned char Byte){
+  23   1              SBUF = Byte;
+  24   1              while(TI==0);   //当发送中断未拉高，则一直等待
+  25   1              TI = 0;                 //当发送中断拉高，则必须用软件置为0
+  26   1      }
+  27          
+  28          void Uart_RcvByte(unsigned char Byte){
+  29   1      
+  30   1      }
+*** WARNING C280 IN LINE 28 OF Uart_Init.c: 'Byte': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     38    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -388,6 +388,11 @@
               <FileType>1</FileType>
               <FilePath>.\Timer0.c</FilePath>
             </File>
+            <File>
+              <FileName>Key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Key.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

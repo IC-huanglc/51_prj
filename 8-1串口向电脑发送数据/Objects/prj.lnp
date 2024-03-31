@@ -1,0 +1,9 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\Delay1ms.obj",
+".\Objects\LCD1602.obj",
+".\Objects\Uart_Init.obj",
+".\Objects\Timer1.obj" 
+TO ".\Objects\prj" 
+PRINT(".\Listings\prj.m51") RAMSIZE(256) 
+DISABLEWARNING (16) 
